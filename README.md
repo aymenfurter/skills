@@ -51,7 +51,6 @@ secondary connectors that are present in the Astra result.
 
 Differential regression review is copied unchanged from
 [aymenfurter/differential-regression-review](https://github.com/aymenfurter/differential-regression-review/tree/d2304f1292473cd6708a61bbadffa36760f41ce7).
-The draw.io skills replace my original `drawio-architecture` workflow.
 
 [MIT License](LICENSE). Each skill directory also includes the license for
 standalone distribution.
