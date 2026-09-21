@@ -32,6 +32,10 @@ one A5 sheet (148 x 210 mm, either orientation). Make it rich in useful
 information, not crowded: preserve readable labels at actual print size.
 Use source-backed detail, clear grouping, and correct relationships.
 
+VERY Important: Find a way to really visualise an aspect of the information. 
+Avoid drawing simple boxes and arrows but instead think of how a concept or process can be
+explained in a visual manner. Use a lot of icons, logos. The output must be a rich diagram.
+
 Export as PNG and inspect the actual image. Keep the `.drawio`, matching PNG,
 and source/asset credits in the task's artifacts. Deliver them with a short
 pitch explaining the visual direction. Identify it as the initial proposal;
