@@ -9,13 +9,16 @@ My reusable agent skills.
 | [Differential regression review](skills/differential-regression-review/SKILL.md) | Compare base and pull request behavior with temporary end-to-end tests. |
 | [Draw.io pitch](skills/drawio-pitch/SKILL.md) | Research the subject and visual direction, then create a dense A5 diagram and PNG. |
 | [Draw.io iterate](skills/drawio-iterate/SKILL.md) | Complete at least four PNG review passes: an 800% diagram-code increase, then corrections only. |
-| [Narrated PR walkthrough](skills/narrated-pr-walkthrough/SKILL.md) | Create a narrated 1-5 slide PR video with draw.io diagrams, local Kokoro speech, and verification evidence. |
+| [Narrated PR walkthrough](skills/narrated-pr-walkthrough/SKILL.md) | Create an animated HTML walkthrough by default, or a narrated MP4 video when requested. |
 
 Use `drawio-pitch` for the initial proposal, then `drawio-iterate` to refine it.
 The skills do not prescribe a visual style or PNG export tool.
 Differential regression review requires Git and the target project's test dependencies.
-Narrated PR walkthrough requires both draw.io skills, GPT-6 Astra subagents,
-a draw.io PNG export tool, Docker, FFmpeg, and FFprobe. Simple PRs can use one slide.
+Narrated PR walkthrough uses HTML by default. The video option requires both
+draw.io skills, GPT-6 Astra subagents, a draw.io PNG export tool, Docker,
+FFmpeg, and FFprobe. The skill works best with a Claude Opus 5.5 or higher
+subagent for the HTML option. The video option uses the model requirements in
+its instructions and the linked draw.io skills.
 
 ## Install
 
