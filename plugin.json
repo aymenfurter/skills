@@ -1,0 +1,18 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "aymenfurter-skills",
+  "description": "Skills for differential regression reviews, draw.io diagrams, and narrated pull request walkthroughs.",
+  "version": "1.0.0",
+  "author": {
+    "name": "aymenfurter",
+    "url": "https://github.com/aymenfurter"
+  },
+  "repository": "https://github.com/aymenfurter/skills",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "code-review",
+    "drawio",
+    "pull-requests"
+  ]
+}

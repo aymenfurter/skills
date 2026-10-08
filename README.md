@@ -22,6 +22,34 @@ its instructions and the linked draw.io skills.
 
 ## Install
 
+### Copilot marketplace
+
+In Copilot's plugin marketplace settings, add `aymenfurter/skills` as the
+source. Then install `aymenfurter-skills` from the `aymenfurter-skills`
+marketplace. The plugin includes all four skills and their supporting files.
+
+From Copilot CLI:
+
+```bash
+copilot plugin marketplace add aymenfurter/skills
+copilot plugin install aymenfurter-skills@aymenfurter-skills
+```
+
+To use a local checkout before publication, run these commands from the
+repository root:
+
+```bash
+copilot plugin marketplace add .
+copilot plugin install aymenfurter-skills@aymenfurter-skills
+```
+
+The marketplace catalog is in
+[`.github/plugin/marketplace.json`](.github/plugin/marketplace.json).
+The root [`plugin.json`](plugin.json) uses the Agent Plugins 1.0 format.
+It loads each skill from an immediate subdirectory of `skills/`.
+
+### Individual skills
+
 From a local checkout, use GitHub CLI 2.90.0 or later:
 
 ```bash
@@ -30,6 +58,8 @@ gh skill install . --all \
 ```
 
 To install one skill, replace `--all` with its name.
+Use either the plugin or individual skill installation to avoid duplicate
+copies.
 
 ## Diagram samples
 

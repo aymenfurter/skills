@@ -1,0 +1,18 @@
+{
+  "name": "aymenfurter-skills",
+  "owner": {
+    "name": "aymenfurter"
+  },
+  "metadata": {
+    "description": "Agent skills for regression reviews, draw.io diagrams, and pull request walkthroughs.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "aymenfurter-skills",
+      "source": ".",
+      "description": "Skills for differential regression reviews, draw.io diagrams, and narrated pull request walkthroughs.",
+      "version": "1.0.0"
+    }
+  ]
+}
