@@ -7,6 +7,7 @@ My reusable agent skills.
 | Skill | Purpose |
 | --- | --- |
 | [Differential regression review](skills/differential-regression-review/SKILL.md) | Compare base and pull request behavior with temporary end-to-end tests. |
+| [Clean-room design review](skills/clean-room-design-review/SKILL.md) | Rebuild a pull request's required outcomes without its design, then compare both designs. |
 | [Draw.io pitch](skills/drawio-pitch/SKILL.md) | Research the subject and visual direction, then create a dense A5 diagram and PNG. |
 | [Draw.io iterate](skills/drawio-iterate/SKILL.md) | Complete at least four PNG review passes: an 800% diagram-code increase, then corrections only. |
 | [Narrated PR walkthrough](skills/narrated-pr-walkthrough/SKILL.md) | Create an animated HTML walkthrough by default, or a narrated MP4 video when requested. |
@@ -14,6 +15,7 @@ My reusable agent skills.
 Use `drawio-pitch` for the initial proposal, then `drawio-iterate` to refine it.
 The skills do not prescribe a visual style or PNG export tool.
 Differential regression review requires Git and the target project's test dependencies.
+Clean-room design review requires Git, Python 3, and an agent tool that can start a separate autonomous agent.
 Narrated PR walkthrough uses HTML by default. The video option requires both
 draw.io skills, GPT-6 Astra subagents, a draw.io PNG export tool, Docker,
 FFmpeg, and FFprobe. The skill works best with a Claude Opus 5.5 or higher
@@ -26,7 +28,7 @@ its instructions and the linked draw.io skills.
 
 In Copilot's plugin marketplace settings, add `aymenfurter/skills` as the
 source. Then install `aymenfurter-skills` from the `aymenfurter-skills`
-marketplace. The plugin includes all four skills and their supporting files.
+marketplace. The plugin includes all five skills and their supporting files.
 
 From Copilot CLI:
 
