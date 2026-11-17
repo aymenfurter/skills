@@ -4,14 +4,14 @@
     "name": "aymenfurter"
   },
   "metadata": {
-    "description": "Agent skills for regression reviews, design reviews, draw.io diagrams, and pull request walkthroughs.",
+    "description": "Agent skills for regression reviews, design reviews, draw.io diagrams, pull request walkthroughs, and simple HTML diffs.",
     "version": "1.1.0"
   },
   "plugins": [
     {
       "name": "aymenfurter-skills",
       "source": ".",
-      "description": "Skills for differential regression reviews, clean-room design reviews, draw.io diagrams, and narrated pull request walkthroughs.",
+      "description": "Skills for differential regression reviews, clean-room design reviews, draw.io diagrams, narrated pull request walkthroughs, and simple before-and-after HTML diffs.",
       "version": "1.1.0"
     }
   ]
