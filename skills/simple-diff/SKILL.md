@@ -29,4 +29,6 @@ Write one `simple-diff.html` file in the session artifacts directory:
 - Escape inserted text and code. Use inline CSS and no external dependencies.
 - Keep it short. No slides, narration, test reports, or full patch.
 
-Check the explanation against the source, then link the HTML file.
+Check the explanation against the source. Once the HTML file is created,
+automatically open it in the integrated browser, if available. Otherwise,
+only provide the file link. Link the HTML file in the final reply.
