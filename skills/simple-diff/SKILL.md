@@ -21,13 +21,12 @@ Exclude test code, fixtures, snapshots, generated code, formatting changes,
 and boilerplate. Keep configuration changes when they affect behavior.
 If nothing relevant remains, say so instead of inventing a comparison.
 
-Write one `simple-diff.html` file in the session artifacts directory:
-
-- Set both `html` and `body` backgrounds to exactly `#121213`.
-- Put Before and After side by side; stack them on narrow screens.
-- Use readable contrast, semantic headings, and wrapping code.
-- Escape inserted text and code. Use inline CSS and no external dependencies.
-- Keep it short. No slides, narration, test reports, or full patch.
+Write one `simple-diff.html` file in the session artifacts directory. Copy
+`assets/template.html` and keep its CSS and script; they set the `#121213`
+background, syntax highlighting, and diff layout. Fill in the title, summary,
+and one `<section class="change">` per change with Before/After sentences and
+only the relevant HTML-escaped `git diff` hunks. Keep it short. No slides,
+narration, test reports, or full patch.
 
 Check the explanation against the source. Once the HTML file is created,
 automatically open it in the integrated browser, if available. Otherwise,
