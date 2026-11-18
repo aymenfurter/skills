@@ -109,7 +109,7 @@ evidence internally when deciding the verdict.
 
 Replace the example values with the actual results.
 
-- Use green for zero findings and `LGTM`.
+- Use green for zero findings, `LGTM`, and `MANUAL REVIEW`.
 - Use red for one or more findings and `NEEDS WORK`.
 - Round open-risk reduction to the nearest whole percent.
 - Do not show cards or a verdict before E2E execution.
@@ -126,9 +126,14 @@ If no PR exists, give a prioritized list of recommended actions based on
 confirmed findings and unresolved risks. Include the related risk ID,
 expected corrected behavior, and required verification.
 
-The verdict card must show `LGTM` only when there are no confirmed
-regressions, no required follow-up actions, and all Critical/High risks
-have conclusive evidence. Otherwise, show `NEEDS WORK`.
+Select the verdict card value as follows:
+
+- `LGTM`: there are no confirmed regressions, no required follow-up
+  actions, and all Critical/High risks have conclusive evidence.
+- `MANUAL REVIEW`: there are no confirmed regressions, but some risks
+  remain open, blocked, inconclusive, or untested. Do not call the PR safe.
+  In the text, name the risks that need manual review.
+- `NEEDS WORK`: there is one or more confirmed regressions.
 
 Do not describe blocked, inconclusive, or untested results as confirmed
 regressions. Never submit a review, approve a PR, post comments, or make
