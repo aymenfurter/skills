@@ -109,7 +109,9 @@ evidence internally when deciding the verdict.
 
 Replace the example values with the actual results.
 
-- Use green for zero findings, `LGTM`, and `MANUAL REVIEW`.
+- Use green (`#3fb950`) for zero findings, `LGTM`, and `LIKELY OK`.
+- Render `LIKELY OK` with the same card frame, font, and size as `LGTM`,
+  using `\textcolor{#3fb950}{\Huge\mathsf{LIKELY\ OK}}` for the value.
 - Use red for one or more findings and `NEEDS WORK`.
 - Round open-risk reduction to the nearest whole percent.
 - Do not show cards or a verdict before E2E execution.
@@ -130,9 +132,9 @@ Select the verdict card value as follows:
 
 - `LGTM`: there are no confirmed regressions, no required follow-up
   actions, and all Critical/High risks have conclusive evidence.
-- `MANUAL REVIEW`: there are no confirmed regressions, but some risks
+- `LIKELY OK`: there are no confirmed regressions, but some risks
   remain open, blocked, inconclusive, or untested. Do not call the PR safe.
-  In the text, name the risks that need manual review.
+  In the text, name the unresolved risks and required verification.
 - `NEEDS WORK`: there is one or more confirmed regressions.
 
 Do not describe blocked, inconclusive, or untested results as confirmed
