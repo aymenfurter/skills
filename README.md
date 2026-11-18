@@ -23,7 +23,7 @@ FFmpeg, and FFprobe. The skill works best with a Claude Opus 5.5 or higher
 subagent for the HTML option. The video option uses the model requirements in
 its instructions and the linked draw.io skills.
 Use `simple-diff` for a short HTML explanation instead of a full walkthrough.
-It contains instructions only and needs no external libraries.
+It uses a self-contained HTML template with syntax highlighting and no external libraries.
 
 ## Install
 

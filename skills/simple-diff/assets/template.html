@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simple diff: TITLE</title>
+<style>
+  :root {
+    --bg: #121213;
+    --gap: #17181c;
+    --line: #26272c;
+    --text: #e6edf3;
+    --dim: #8b949e;
+    --num: #6e7681;
+    --del-row: #2c1f23;
+    --del-word: rgba(248, 81, 73, 0.42);
+    --del: #f85149;
+    --add-row: #1c2b24;
+    --add-word: rgba(46, 160, 67, 0.48);
+    --add: #3fb950;
+    --kw: #ff7b72;
+    --str: #a5d6ff;
+    --com: #8b949e;
+    --num-lit: #79c0ff;
+    --fn: #d2a8ff;
+    --type: #ffa657;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); }
+  body { font: 13px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+  main { max-width: 64rem; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+  h1 { font-size: 15px; font-weight: 600; margin: 0; }
+  main > p { margin: 0.15rem 0 1rem; color: var(--dim); }
+  .change { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-top: 0.75rem; }
+  .change h2 { font-size: 13px; font-weight: 600; margin: 0; padding: 0.55rem 0.85rem 0.15rem; }
+  .change dl { display: grid; grid-template-columns: auto 1fr; gap: 0.1rem 0.75rem; margin: 0; padding: 0 0.85rem 0.6rem; }
+  .change dt { color: var(--dim); }
+  .change dd { margin: 0; }
+  .file { display: flex; align-items: center; gap: 0.75rem; padding: 0.4rem 0.85rem;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .file .path { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--dim); }
+  .file .path b { color: var(--text); font-weight: 500; }
+  .file .stat { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .stat .a { color: var(--add); }
+  .stat .d { color: var(--del); margin-left: 0.4rem; }
+  pre.diff { margin: 0; font: 12.5px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; tab-size: 4; }
+  .row { display: grid; grid-template-columns: 3.25rem 3.25rem 1.5rem 1fr; }
+  .row > .n { text-align: right; padding-right: 0.6rem; color: var(--num); user-select: none; }
+  .row > .m { text-align: center; color: var(--num); user-select: none; }
+  .row > .c { white-space: pre-wrap; overflow-wrap: anywhere; padding-right: 0.85rem; }
+  .row.del { background: var(--del-row); }
+  .row.del > .m { color: var(--del); }
+  .row.add { background: var(--add-row); }
+  .row.add > .m { color: var(--add); }
+  .row.del mark { background: var(--del-word); color: inherit; border-radius: 2px; }
+  .row.add mark { background: var(--add-word); color: inherit; border-radius: 2px; }
+  .skip { padding: 0.2rem 0.85rem 0.2rem 7rem; background: var(--gap); color: var(--dim);
+    font: 12px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .skip:first-child { border-top: 0; }
+  .t-kw { color: var(--kw); }
+  .t-str { color: var(--str); }
+  .t-com { color: var(--com); font-style: italic; }
+  .t-num { color: var(--num-lit); }
+  .t-fn { color: var(--fn); }
+  .t-type { color: var(--type); }
+  @media (max-width: 40rem) { .row { grid-template-columns: 2.5rem 2.5rem 1.25rem 1fr; } .skip { padding-left: 6.25rem; } }
+
+</style>
+</head>
+<body>
+<main>
+  <h1>TITLE</h1>
+  <p>ONE SENTENCE: what changed and why.</p>
+
+  <!--
+    One <section class="change"> per key change.
+    data-path: file path. data-lang: ts, js, py, go, rs, cs, java, sh, yaml, css, sql.
+    In <pre class="diff">, paste only the relevant unified diff hunks (from git diff),
+    HTML-escaped, starting with their "@@ -a,b +c,d @@" lines. Counts, line numbers,
+    "unmodified lines" rows, word highlights, and syntax colors are added by the script.
+  -->
+  <section class="change" data-path="src/config.ts" data-lang="ts">
+    <h2>Config is read once</h2>
+    <dl>
+      <dt>Before</dt><dd>Every call reads the config file from disk. Invalid JSON returns an empty config.</dd>
+      <dt>After</dt><dd>The first call caches the config. A config without a version throws a clear error.</dd>
+    </dl>
+<pre class="diff">@@ -8,7 +8,11 @@
+ import { Config } from "./types";
+ 
++let cached: Config | undefined;
++
+ export function getConfig(path: string): Config {
++  if (cached) return cached;
+   const raw = fs.readFileSync(path, "utf8");
+-  try { return JSON.parse(raw); }
+-  catch { return {} as Config; }
++  cached = JSON.parse(raw) as Config;
++  if (!cached.version) throw new Error(`Bad config: ${path}`);
++  return cached;
+ }
+</pre>
+  </section>
+
+  <section class="change" data-path="uploads/client.py" data-lang="py">
+    <h2>Uploads retry on network errors</h2>
+    <dl>
+      <dt>Before</dt><dd>One failed request ends the upload with a raw ConnectionError.</dd>
+      <dt>After</dt><dd>Each upload tries up to 3 times, waits longer after each failure, then reports the attempt count.</dd>
+    </dl>
+<pre class="diff">@@ -40,3 +40,8 @@
+-def upload(path: str) -&gt; Response:
+-    with open(path, "rb") as f:
+-        return session.post(UPLOAD_URL, data=f)
++def upload(path: str, attempts: int = 3) -&gt; Response:
++    for n in range(1, attempts + 1):
++        try:
++            with open(path, "rb") as f:
++                return session.post(UPLOAD_URL, data=f)
++        except ConnectionError:
++            time.sleep(2 ** n)
++    raise UploadError(f"{path}: failed after {attempts} attempts")
+</pre>
+  </section>
+</main>
+
+<script>
+(() => {
+  const KW = new Set(("abstract as async await break case catch class const continue def default defer del do elif else enum " +
+    "except export extends false final finally fn for from func function go if impl implements import in instanceof interface " +
+    "is lambda let match mod mut namespace new nil none null not or and package pass private protected pub public raise readonly " +
+    "return select self static struct super switch this throw throws true try type typeof undefined use using var void where while " +
+    "with yield True False None SELECT FROM WHERE JOIN INSERT UPDATE DELETE INTO VALUES AND OR NOT NULL").split(" "));
+  const HASH = new Set(["py", "sh", "bash", "yaml", "yml", "rb", "toml"]);
+  const PROSE = new Set(["md", "txt"]);
+  const rules = (lang) => PROSE.has(lang) ? [["str", /`[^`]*`?/y], ["text", /[^`]+/y]] : [
+    ["com", /\/\*.*?(?:\*\/|$)|\/\/.*/y, !HASH.has(lang)],
+    ["com", /#.*/y, HASH.has(lang)],
+    ["com", /--.*/y, lang === "sql"],
+    ["str", /[fbr]?(?:"(?:\\.|[^\\"])*"?|'(?:\\.|[^\\'])*'?)|`(?:\\.|[^\\`])*`?/y, true],
+    ["num", /\b(?:0x[\da-f_]+|\d[\d_]*(?:\.\d+)?(?:e[+-]?\d+)?)\b/iy, true],
+    ["word", /[A-Za-z_$][\w$]*/y, true],
+    ["text", /\s+|[^\sA-Za-z_$\d"'`#\/-]+|[\s\S]/y, true],
+  ].filter((r) => r[2]);
+
+  const tokenize = (src, lang) => {
+    const rs = rules(lang), out = [];
+    for (let i = 0; i < src.length;) {
+      for (const [type, re] of rs) {
+        re.lastIndex = i;
+        const m = re.exec(src);
+        if (!m || !m[0]) continue;
+        let t = type;
+        if (t === "word") {
+          const call = /^\s*\(/.test(src.slice(re.lastIndex));
+          t = KW.has(m[0]) ? "kw" : call ? "fn" : /^[A-Z]/.test(m[0]) ? "type" : "text";
+        }
+        out.push([t, m[0]]);
+        i = re.lastIndex;
+        break;
+      }
+    }
+    return out;
+  };
+
+  // Changed span between a removed and an added line, or null when they are not similar.
+  const wordDiff = (a, b) => {
+    let p = 0, s = 0;
+    while (p < a.length && p < b.length && a[p] === b[p]) p++;
+    while (s < a.length - p && s < b.length - p && a[a.length - 1 - s] === b[b.length - 1 - s]) s++;
+    if (p + s < 0.4 * Math.max(a.length, b.length)) return null;
+    return [[p, a.length - s], [p, b.length - s]];
+  };
+
+  const el = (tag, cls, text) => {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  };
+
+  const renderCode = (text, lang, range) => {
+    const cell = el("span", "c");
+    let pos = 0;
+    for (const [type, tok] of tokenize(text, lang)) {
+      const cuts = [0, tok.length];
+      if (range) for (const r of range) if (r > pos && r < pos + tok.length) cuts.push(r - pos);
+      cuts.sort((x, y) => x - y);
+      for (let k = 0; k < cuts.length - 1; k++) {
+        const piece = tok.slice(cuts[k], cuts[k + 1]);
+        if (!piece) continue;
+        const at = pos + cuts[k];
+        let node = type === "text" ? document.createTextNode(piece) : el("span", "t-" + type, piece);
+        if (range && at >= range[0] && at < range[1]) { const m = el("mark"); m.append(node); node = m; }
+        cell.append(node);
+      }
+      pos += tok.length;
+    }
+    if (!text) cell.textContent = " ";
+    return cell;
+  };
+
+  for (const section of document.querySelectorAll(".change")) {
+    const pre = section.querySelector("pre.diff");
+    const lang = section.dataset.lang || "";
+    const rows = [];
+    let oldN = 0, newN = 0, lastOld = 0, lastNew = 0, adds = 0, dels = 0;
+    for (const line of pre.textContent.replace(/\n$/, "").split("\n")) {
+      const hunk = line.match(/^@@ -(\d+)(?:,\d+)? \+(\d+)/);
+      if (hunk) {
+        oldN = Number(hunk[1]); newN = Number(hunk[2]);
+        const skip = oldN ? oldN - 1 - lastOld : newN - 1 - lastNew;
+        if (skip > 0) rows.push({ skip, label: oldN ? "unmodified" : "more" });
+        continue;
+      }
+      const kind = line[0] === "-" ? "del" : line[0] === "+" ? "add" : "ctx";
+      const row = { kind, text: line.slice(1) };
+      if (kind !== "add") row.old = oldN++;
+      if (kind !== "del") row.new = newN++;
+      if (kind === "add") adds++;
+      if (kind === "del") dels++;
+      lastOld = oldN - 1; lastNew = newN - 1;
+      rows.push(row);
+    }
+
+    for (let i = 0; i < rows.length;) {
+      if (rows[i].kind !== "del") { i++; continue; }
+      let d = i; while (rows[d] && rows[d].kind === "del") d++;
+      let a = d; while (rows[a] && rows[a].kind === "add") a++;
+      for (let k = 0; k < Math.min(d - i, a - d); k++) {
+        const r = wordDiff(rows[i + k].text, rows[d + k].text);
+        if (r) { rows[i + k].range = r[0]; rows[d + k].range = r[1]; }
+      }
+      i = a;
+    }
+
+    const mark = (k) => (k === "del" ? "\u2212" : k === "add" ? "+" : "");
+    pre.replaceChildren(...rows.map((r) => {
+      if (r.skip) return el("div", "skip", `${r.skip} ${r.label} line${r.skip === 1 ? "" : "s"}`);
+      const row = el("div", "row " + r.kind);
+      row.append(el("span", "n", r.old ?? ""), el("span", "n", r.new ?? ""),
+        el("span", "m", mark(r.kind)), renderCode(r.text, lang, r.range));
+      return row;
+    }));
+
+    const path = section.dataset.path || "";
+    const cut = path.lastIndexOf("/") + 1;
+    const file = el("div", "file");
+    const p = el("span", "path", path.slice(0, cut));
+    p.append(el("b", null, path.slice(cut)));
+    const stat = el("span", "stat");
+    stat.append(el("span", "a", "+" + adds), el("span", "d", "\u2212" + dels));
+    file.append(p, stat);
+    pre.before(file);
+  }
+})();
+</script>
+</body>
+</html>
