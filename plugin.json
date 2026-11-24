@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "aymenfurter-skills",
   "description": "Skills for differential regression reviews, clean-room design reviews, draw.io diagrams, narrated pull request walkthroughs, simple before-and-after HTML diffs, and mistake-proofing repositories.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "name": "aymenfurter",
     "url": "https://github.com/aymenfurter"
