@@ -13,6 +13,7 @@ My reusable agent skills.
 | [Narrated PR walkthrough](skills/narrated-pr-walkthrough/SKILL.md) | Create an animated HTML walkthrough by default, or a narrated MP4 video when requested. |
 | [Simple diff](skills/simple-diff/SKILL.md) | Show only key changes in a before-and-after HTML file, without test code or boilerplate, on a `#121213` background. |
 | [Poka-yoke](skills/poka-yoke/SKILL.md) | Find repeated agent mistakes and make them impossible through architecture, types, lint/hooks/CI, behavior tests, and verified evals. |
+| [UI hill climb](skills/ui-hill-climb/SKILL.md) | Improve a target UI through 10 variants, three independent model judges, and score-guided refinement. |
 
 Use `drawio-pitch` for the initial proposal, then `drawio-iterate` to refine it.
 The skills do not prescribe a visual style or PNG export tool.
@@ -32,7 +33,7 @@ It uses a self-contained HTML template with syntax highlighting and no external 
 
 In Copilot's plugin marketplace settings, add `aymenfurter/skills` as the
 source. Then install `aymenfurter-skills` from the `aymenfurter-skills`
-marketplace. The plugin includes all seven skills and their supporting files.
+marketplace. The plugin includes all eight skills and their supporting files.
 
 From Copilot CLI:
 
